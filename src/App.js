@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "./components/Button";
+import "./css/style.css";
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class App extends Component {
   };
 
   addToCurrent = (symbol) => {
+    // console.log("symbol");
+
     this.setState({ current: this.state.current + symbol });
   };
 
@@ -41,10 +44,22 @@ class App extends Component {
     ];
     return (
       <div className="App">
+        {this.state.previous.length > 0 ? (
+          <div className="floaty-lash">
+            {this.state.previous[this.state.previous.length - 1]}
+          </div>
+        ) : null}
         <input className="result" type="text" value={this.state.current} />
 
-        {buttons.map(() => {
-          
+        {buttons.map((btn, i) => {
+          return (
+            <Button
+              key={i}
+              symbol={btn.symbol}
+              cols={btn.cols}
+              action={(symbol) => btn.action(symbol)}
+            />
+          );
         })}
       </div>
     );
